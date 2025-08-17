@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>HabitLite — Tracker zilnic</title>
+
+  <!-- iOS safe area -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">✔</span>
+      <h1>HabitLite</h1>
+    </div>
+    <button id="btnAddHabit" class="btn primary">Adaugă</button>
+  </header>
+
+  <main id="view" class="view">
+    <!-- Today view -->
+    <section id="view-today" class="screen active" role="region" aria-labelledby="tab-today">
+      <div class="hero">
+        <h2>Astăzi</h2>
+        <p id="todayDate"></p>
+      </div>
+
+      <div id="todayEmpty" class="empty hidden">
+        <p>Nu ai obiceiuri pentru azi. Adaugă unul și revino aici.</p>
+      </div>
+
+      <ul id="todayList" class="card-list"></ul>
+    </section>
+
+    <!-- Habits view -->
+    <section id="view-habits" class="screen" role="region" aria-labelledby="tab-habits">
+      <div class="hero">
+        <h2>Obiceiuri</h2>
+        <p>Gestionează lista ta de obiceiuri.</p>
+      </div>
+
+      <div id="habitsEmpty" class="empty hidden">
+        <p>Încă nu ai niciun obicei. Apasă „Adaugă”.</p>
+      </div>
+
+      <ul id="habitsList" class="card-list"></ul>
+    </section>
+
+    <!-- Settings view -->
+    <section id="view-settings" class="screen" role="region" aria-labelledby="tab-settings">
+      <div class="hero">
+        <h2>Setări</h2>
+        <p>Preferințe vizuale și date.</p>
+      </div>
+
+      <div class="card">
+        <div class="row between">
+          <span>Tema întunecată</span>
+          <label class="switch">
+            <input type="checkbox" id="darkToggle" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="card danger">
+        <div class="row between">
+          <div>
+            <strong>Resetare date</strong>
+            <p class="muted">Șterge toate obiceiurile și istoricul.</p>
+          </div>
+          <button id="btnReset" class="btn danger">Șterge</button>
+        </div>
+      </div>
+
+      <footer class="credits">
+        <p>HabitLite — aplicație simplă pentru GitHub Pages.</p>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="tabbar" role="tablist" aria-label="Navigare principală">
+    <button id="tab-today" class="tab active" role="tab" aria-controls="view-today" aria-selected="true">
+      <span class="icon" aria-hidden="true">📅</span>
+      <span>Astăzi</span>
+    </button>
+    <button id="tab-habits" class="tab" role="tab" aria-controls="view-habits" aria-selected="false">
+      <span class="icon" aria-hidden="true">✅</span>
+      <span>Obiceiuri</span>
+    </button>
+    <button id="tab-settings" class="tab" role="tab" aria-controls="view-settings" aria-selected="false">
+      <span class="icon" aria-hidden="true">⚙️</span>
+      <span>Setări</span>
+    </button>
+  </nav>
+
+  <!-- Modal Add/Edit Habit -->
+  <dialog id="habitDialog" class="dialog">
+    <form id="habitForm" method="dialog" class="dialog-content">
+      <h3 id="habitDialogTitle">Adaugă obicei</h3>
+
+      <label class="field">
+        <span>Nume obicei</span>
+        <input id="habitName" type="text" placeholder="Ex: Alergare 15 min" required minlength="2" />
+      </label>
+
+      <label class="field">
+        <span>Frecvență</span>
+        <div class="chips" role="group" aria-label="Zilele săptămânii">
+          <!-- 1=Mon ... 7=Sun (ISO) -->
+          <button type="button" class="chip" data-day="1">Lu</button>
+          <button type="button" class="chip" data-day="2">Ma</button>
+          <button type="button" class="chip" data-day="3">Mi</button>
+          <button type="button" class="chip" data-day="4">Jo</button>
+          <button type="button" class="chip" data-day="5">Vi</button>
+          <button type="button" class="chip" data-day="6">Sâ</button>
+          <button type="button" class="chip" data-day="7">Du</button>
+        </div>
+        <p class="hint">Selectează zilele în care vrei să apară.</p>
+      </label>
+
+      <menu class="dialog-actions">
+        <button type="reset" id="habitCancel" class="btn">Anulează</button>
+        <button type="submit" class="btn primary">Salvează</button>
+      </menu>
+      <input type="hidden" id="habitId" />
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
